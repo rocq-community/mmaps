@@ -18,7 +18,7 @@ jobs:
       - name: Build coqdoc
         uses: coq-community/docker-coq-action@v1
         with:
-          custom_image: 'coqorg/coq:dev'
+          custom_image: 'rocq/rocq-prover:dev'
           custom_script: |
             {{before_install}}
             startGroup "Build mmaps dependencies"
@@ -27,7 +27,7 @@ jobs:
               opam install -y -j "$(nproc)" coq-mmaps --deps-only
             endGroup
             startGroup "Add permissions"
-              sudo chown -R coq:coq .
+              sudo chown -R 1000:1000 .
             endGroup
             startGroup "Build coqdoc"
               make -j "$(nproc)"
