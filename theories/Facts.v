@@ -1759,7 +1759,7 @@ Section Elt.
   Proof.
   intros x.
   rewrite fold_spec_right, bindings_o, filter_spec.
-  rewrite findA_rev, filter_rev by apply NoDupA_filter, bindings_spec2w.
+  rewrite findA_rev, Utils.filter_rev by apply NoDupA_filter, bindings_spec2w.
   change K.t with key in *.
   induction (rev (bindings m)) as [|(y,e) l IH]; simpl.
   - now rewrite empty_o.
@@ -2653,7 +2653,7 @@ assert (forall tab k, eqv (fold g tab u) (f (get k tab) (fold g (remove k tab) u
       InA (keyb_eq (elt:=elt)) (k', y) (rev (bindings (remove k tab))) <->
       InA (keyb_eq (elt:=elt)) (k', y)
         (List.filter (fun p : K.t * elt => negb (eqb (fst p) k)) (rev (bindings tab)))).
-        intros; rewrite <- filter_rev, !InA_rev. auto.
+        intros; rewrite <- Utils.filter_rev, !InA_rev. auto.
     clear H0.
     pose proof (bindings_3w tab).
     pose proof (bindings_3w (remove k tab)).

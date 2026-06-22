@@ -40,11 +40,16 @@ Local Notation Bk := (@Node _ Black).
     - the black depth at each node is the same along all paths.
     The black depth is here an argument of the predicate. *)
 
+(* LATER: `Scheme rbt_ind := Induction for rbt Sort Prop` raised a universe
+   anomaly ("Universe ... undefined") in Rocq 9.1, so instead of using `Scheme`
+   explicitly we enable automatic elimination scheme generation for `rbt`. *)
+Local Set Elimination Schemes.
 Inductive rbt elt : nat -> tree elt -> Prop :=
  | RB_Leaf : rbt 0 Leaf
  | RB_Rd n l k e r :
    notred l -> notred r -> rbt n l -> rbt n r -> rbt n (Rd l k e r)
  | RB_Bk n l k e r : rbt n l -> rbt n r -> rbt (S n) (Bk l k e r).
+Local Unset Elimination Schemes.
 
 (** A red-red tree is almost a red-black tree, except that it has
     a _red_ root node which _may_ have red children. Note that a
@@ -70,7 +75,6 @@ Class Rbt elt (t:tree elt) :=  RBT : exists d, rbt d t.
 
 (** ** Basic tactics and results about red-black trees *)
 
-Scheme rbt_ind := Induction for rbt Sort Prop.
 Local Hint Constructors rbt rrt arbt : map.
 Local Hint Extern 0 (notred _) => (exact I) : map.
 Ltac invrb := intros; inv rrt; inv rbt; try contradiction.

@@ -34,13 +34,13 @@ that is meant to complement the Stdlib's MSet library.
 - Author(s):
   - Pierre Letouzey (initial)
   - Andrew W. Appel
-- Coq-community maintainer(s):
+- Rocq-community maintainer(s):
   - Pierre Letouzey ([**@letouzey**](https://github.com/letouzey))
   - Karl Palmskog ([**@palmskog**](https://github.com/palmskog))
 - License: [GNU Lesser General Public License v2.1 only](LICENSE)
-- Compatible Coq versions: 8.14 and later
+- Compatible Rocq/Coq versions: 8.16 and later
 - Additional dependencies: none
-- Coq namespace: `MMaps`
+- Rocq/Coq namespace: `MMaps`
 - Related publication(s):
   - [Efficient Verified Red-Black Trees](https://www.cs.princeton.edu/~appel/papers/redblack.pdf) 
   - [Functors for Proofs and Programs](https://hal.inria.fr/hal-00150913) doi:[10.1007/978-3-540-24725-8_26](https://doi.org/10.1007/978-3-540-24725-8_26)
@@ -51,15 +51,19 @@ The easiest way to install the latest released version of Modular Finite Maps ov
 is via [OPAM](https://opam.ocaml.org/doc/Install.html):
 
 ```shell
-opam repo add coq-released https://coq.inria.fr/opam/released
+opam repo add rocq-released https://rocq-prover.org/opam/released
 opam install coq-mmaps
 ```
 
-To instead build and install manually, do:
+To instead build and install manually, you need to make sure that all the
+libraries this development depends on are installed.  The easiest way to do that
+is still to rely on opam:
 
 ``` shell
 git clone https://github.com/coq-community/coq-mmaps.git
 cd coq-mmaps
+opam repo add rocq-released https://rocq-prover.org/opam/released
+opam install --deps-only .
 make   # or make -j <number-of-cores-on-your-machine> 
 make install
 ```
